@@ -8,16 +8,16 @@ Checked against the official [challenge page](https://webmcp.devpost.com/) and [
 |---|---|---|
 | Unique project that uses WebMCP | Nine imperative page-hosted tools; top-level registration in `src/app.mjs`; schemas and lifecycle in `src/webmcp.mjs` | **Implemented** |
 | Multiple submissions must be unique and substantially different | This project is a safety-gated infrastructure digital twin. Unlike the separate microplate app (laboratory spatial allocation) and provenance app (evidence-chain research), its core mechanic is versioned restoration planning plus human authorization of a synthetic switching sequence. It shares no domain model, workflow, or consequence with those projects. | **Distinct** |
-| Working live URL, accessible through judging | Static app is deployment-ready. Local URL: `http://localhost:4173`. A GitHub Pages creation attempt on 2026-09-02 returned HTTP 422: the current plan does not support Pages for this private repository. | **BLOCKER until public hosting or repository visibility is resolved** |
+| Working live URL, accessible through judging | GitHub Pages: `https://webmaxru.github.io/webmcp-grid-resilience/`; anonymous HTTPS request returned HTTP 200 with the expected title on 2026-09-02. | **Pass** |
 | Project description explains WebMCP fit, improved UX, new capability, and implementation | Complete copy in `devpost-submission.md` | **Ready** |
 | Public YouTube demo under 3 minutes with audio | Script, timed transcript, and shot list exist in `demo/`. | **BLOCKER: recording, audio, upload, and public URL required** |
-| Public source repository with complete source | Remote: `https://github.com/webmaxru/webmcp-grid-resilience`. The user explicitly required it remain private during implementation. | **BLOCKER: repository must ultimately be public for submission** |
-| Open-source license visibly present | Root `LICENSE` is MIT and linked in README | **Ready once repository is public** |
+| Public source repository with complete source | `https://github.com/webmaxru/webmcp-grid-resilience`; GitHub API confirmed `isPrivate: false` on 2026-09-02. | **Pass** |
+| Open-source license visibly present | Root `LICENSE` is MIT and linked in README | **Pass** |
 | Required field: agents/clients tested | Deterministic fake `modelContext`: passed by automated test. OpenAI Codex desktop native WebMCP: acceptance protocol ready, runtime pass not yet claimed. | **Partial; native run required** |
 | Required field: AI tools used | OpenAI Codex and installed `webmcp` implementation skill are disclosed in submission copy | **Ready** |
-| Source and app remain accessible through judging | Requires public repository and stable live host during judging | **BLOCKER until visibility/deployment resolved** |
+| Source and app remain accessible through judging | Public repository and HTTPS GitHub Pages deployment are active; keep both available through judging | **Pass; ongoing availability required** |
 
-Do not replace any blocker with an invented URL or claim. The private-repository instruction conflicts with the challenge's public-source requirement. Change visibility only with the owner's explicit action/authorization.
+Repository visibility and Pages deployment were changed only after the owner explicitly requested both actions.
 
 ## Local implementation validation
 
@@ -74,9 +74,9 @@ Codex's in-app Browser binding was selected and made visible, but two fresh loca
 - [x] MIT license and source documentation
 - [x] Devpost copy, transcript, script, and shot list
 - [ ] Native Codex desktop run captured with Site tools history
-- [ ] Public live URL returns HTTP 200 and stays available
-- [ ] Repository deliberately changed from private to public
+- [x] Public live URL returns HTTP 200 and stays available
+- [x] Repository deliberately changed from private to public
 - [ ] Public YouTube video, under 3:00, with audible narration
 - [ ] Final Devpost form fields and URLs verified
 
-Submission is **not ready** until all five unchecked external items are completed.
+Submission is **not ready** until the three unchecked external items are completed.

@@ -10,8 +10,8 @@ A human sets safety priorities; an AI agent explores restoration plans; the page
 
 ## Links
 
-- Repository: `https://github.com/webmaxru/webmcp-grid-resilience` — **currently private; must be public before submission**
-- Live app: **BLOCKER — add verified stable public URL**
+- Repository: `https://github.com/webmaxru/webmcp-grid-resilience`
+- Live app: `https://webmaxru.github.io/webmcp-grid-resilience/`
 - Public YouTube demo: **BLOCKER — add verified public URL, under 3 minutes with audio**
 
 ## Inspiration
@@ -99,4 +99,4 @@ Next steps would add a real optimization solver behind the same interface, multi
 
 ## Built with
 
-WebMCP, JavaScript, HTML, CSS, SVG, Node.js test runner, GitHub, GitHub Pages (pending deployment confirmation).
+WebMCP, JavaScript, HTML, CSS, SVG, Node.js test runner, GitHub, GitHub Pages.

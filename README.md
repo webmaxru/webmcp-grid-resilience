@@ -69,7 +69,7 @@ RULES-VALIDATION.md        requirements and honest blockers
 
 ## Deployment
 
-The project is static and can be hosted on GitHub Pages without a build. The live URL is recorded in `RULES-VALIDATION.md` once deployment is confirmed. Keep it accessible for the full judging period.
+The project is deployed without a build at [https://webmaxru.github.io/webmcp-grid-resilience/](https://webmaxru.github.io/webmcp-grid-resilience/). Keep it accessible for the full judging period.
 
 ## License and security
 
