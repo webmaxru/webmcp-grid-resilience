@@ -90,7 +90,7 @@ Next steps would add a real optimization solver behind the same interface, multi
 
 - Deterministic fake `ModelContext` harness: **passed** registration and execution contract tests.
 - Standard human browser path: **locally testable without WebMCP**.
-- OpenAI Codex desktop built-in browser with native site tools: **acceptance script prepared; do not mark passed until recorded on a supported client**.
+- OpenAI Codex desktop in-app Browser with native site tools: **passed on the public deployment on 2026-09-02**. Exactly nine tools were discovered; successful calls included incident/topology reads, two simulations, comparison, and visible draft preview.
 
 ## AI tools used
 

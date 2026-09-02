@@ -13,7 +13,7 @@ Checked against the official [challenge page](https://webmcp.devpost.com/) and [
 | Public YouTube demo under 3 minutes with audio | Script, timed transcript, and shot list exist in `demo/`. | **BLOCKER: recording, audio, upload, and public URL required** |
 | Public source repository with complete source | `https://github.com/webmaxru/webmcp-grid-resilience`; GitHub API confirmed `isPrivate: false` on 2026-09-02. | **Pass** |
 | Open-source license visibly present | Root `LICENSE` is MIT and linked in README | **Pass** |
-| Required field: agents/clients tested | Deterministic fake `modelContext`: passed by automated test. OpenAI Codex desktop native WebMCP: acceptance protocol ready, runtime pass not yet claimed. | **Partial; native run required** |
+| Required field: agents/clients tested | Deterministic fake `modelContext`: passed. OpenAI Codex desktop in-app Browser: nine tools discovered from the public deployment and six native calls completed, including simulation, comparison, and visible draft mutation. | **Pass** |
 | Required field: AI tools used | OpenAI Codex and installed `webmcp` implementation skill are disclosed in submission copy | **Ready** |
 | Source and app remain accessible through judging | Public repository and HTTPS GitHub Pages deployment are active; keep both available through judging | **Pass; ongoing availability required** |
 
@@ -31,11 +31,15 @@ Repository visibility and Pages deployment were changed only after the owner exp
 | Approval revocation | Automated | Human state edit clears page grant |
 | Idempotent execution | Automated | One receipt for repeated key |
 | Responsive/accessibility baseline | Keyboard controls, labels, reduced motion, mobile CSS | Manual screenshot/keyboard check |
-| Codex desktop native discovery | `evals.md` cases 1–7 | **Pending real supported client run** |
+| Codex desktop native discovery | Public deployment, nine discovered tools, native `get_incident_state`, `get_topology`, two `simulate_restoration_plan`, `compare_plans`, and `set_draft_plan` calls | **Pass (2026-09-02)** |
 
 ### Native Codex attempt (2026-09-02)
 
 Codex's in-app Browser binding was selected and made visible, but two fresh localhost tab attempts timed out while waiting for the Browser webview to attach. A direct Codex-panel browser open also failed to attach. Therefore no native site-tool call, discovery result, or Recently Used trace is claimed; the deterministic fake-`modelContext` tests remain test-harness evidence only.
+
+### Native Codex retry (2026-09-02)
+
+After publishing the HTTPS GitHub Pages deployment, the in-app Browser discovered exactly nine page tools. Native calls read the incident and constraints, simulated a valid 27% reserve plan and an invalid 18% coverage plan, compared them, and placed the valid plan into visible preview. The page advanced from state version 1 to 2 and its activity ledger recorded the agent calls. This supersedes the failed localhost attempt above.
 
 ## Judging criteria — equal-weight evidence
 
@@ -73,10 +77,10 @@ Codex's in-app Browser binding was selected and made visible, but two fresh loca
 - [x] Automated state-machine and fake-client tests
 - [x] MIT license and source documentation
 - [x] Devpost copy, transcript, script, and shot list
-- [ ] Native Codex desktop run captured with Site tools history
+- [x] Native Codex desktop run captured with Site tools history
 - [x] Public live URL returns HTTP 200 and stays available
 - [x] Repository deliberately changed from private to public
 - [ ] Public YouTube video, under 3:00, with audible narration
 - [ ] Final Devpost form fields and URLs verified
 
-Submission is **not ready** until the three unchecked external items are completed.
+Submission is **not ready** until the two unchecked external items are completed.
