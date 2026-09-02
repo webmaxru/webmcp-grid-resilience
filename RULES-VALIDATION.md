@@ -8,7 +8,7 @@ Checked against the official [challenge page](https://webmcp.devpost.com/) and [
 |---|---|---|
 | Unique project that uses WebMCP | Nine imperative page-hosted tools; top-level registration in `src/app.mjs`; schemas and lifecycle in `src/webmcp.mjs` | **Implemented** |
 | Multiple submissions must be unique and substantially different | This project is a safety-gated infrastructure digital twin. Unlike the separate microplate app (laboratory spatial allocation) and provenance app (evidence-chain research), its core mechanic is versioned restoration planning plus human authorization of a synthetic switching sequence. It shares no domain model, workflow, or consequence with those projects. | **Distinct** |
-| Working live URL, accessible through judging | Static app is deployment-ready. Local URL: `http://localhost:4173`. GitHub Pages URL is pending confirmation. | **BLOCKER until public URL confirmed** |
+| Working live URL, accessible through judging | Static app is deployment-ready. Local URL: `http://localhost:4173`. A GitHub Pages creation attempt on 2026-09-02 returned HTTP 422: the current plan does not support Pages for this private repository. | **BLOCKER until public hosting or repository visibility is resolved** |
 | Project description explains WebMCP fit, improved UX, new capability, and implementation | Complete copy in `devpost-submission.md` | **Ready** |
 | Public YouTube demo under 3 minutes with audio | Script, timed transcript, and shot list exist in `demo/`. | **BLOCKER: recording, audio, upload, and public URL required** |
 | Public source repository with complete source | Remote: `https://github.com/webmaxru/webmcp-grid-resilience`. The user explicitly required it remain private during implementation. | **BLOCKER: repository must ultimately be public for submission** |
@@ -32,6 +32,10 @@ Do not replace any blocker with an invented URL or claim. The private-repository
 | Idempotent execution | Automated | One receipt for repeated key |
 | Responsive/accessibility baseline | Keyboard controls, labels, reduced motion, mobile CSS | Manual screenshot/keyboard check |
 | Codex desktop native discovery | `evals.md` cases 1–7 | **Pending real supported client run** |
+
+### Native Codex attempt (2026-09-02)
+
+Codex's in-app Browser binding was selected and made visible, but two fresh localhost tab attempts timed out while waiting for the Browser webview to attach. A direct Codex-panel browser open also failed to attach. Therefore no native site-tool call, discovery result, or Recently Used trace is claimed; the deterministic fake-`modelContext` tests remain test-harness evidence only.
 
 ## Judging criteria — equal-weight evidence
 
