@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A synthetic WebMCP microgrid restoration training simulator.">
+    <title>Islanding · WebMCP Grid Resilience Lab</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to simulator</a>
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">⌁</span>
+        <div><strong>ISLANDING</strong><span>Grid resilience lab</span></div>
+      </div>
+      <div class="header-actions">
+        <div id="tool-status" class="tool-status" role="status" aria-live="polite"><span class="status-dot"></span><strong>Checking WebMCP…</strong></div>
+        <button id="reset" class="ghost" type="button">Reset incident</button>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="incident-strip" aria-label="Incident overview">
+        <div><span class="pulse" aria-hidden="true"></span><div><span class="eyebrow">Active training incident</span><strong>Storm 042 · Feeder F1 fault</strong></div></div>
+        <dl>
+          <div><dt>Phase</dt><dd id="phase">incident loaded</dd></div>
+          <div><dt>State</dt><dd id="version">v1</dd></div>
+          <div><dt>Battery</dt><dd id="reserve">55%</dd></div>
+          <div><dt>Critical loads</dt><dd id="critical-count">2</dd></div>
+        </dl>
+        <span class="training-badge">Synthetic training only</span>
+      </section>
+
+      <div class="workspace">
+        <section class="panel topology-panel" aria-labelledby="topology-title">
+          <div class="panel-heading">
+            <div><span class="eyebrow">Shared live state</span><h1 id="topology-title">Community microgrid</h1></div>
+            <div class="legend"><span><i class="dark"></i>Off</span><span><i class="preview"></i>Preview</span><span><i class="live"></i>Restored</span></div>
+          </div>
+          <svg class="topology" viewBox="0 0 760 420" role="img" aria-labelledby="map-title map-desc">
+            <title id="map-title">Synthetic microgrid topology</title>
+            <desc id="map-desc">A faulted feeder, isolated switch, solar, generator, battery, and four loads.</desc>
+            <defs>
+              <linearGradient id="gridBg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#101b30"/><stop offset="1" stop-color="#09111f"/></linearGradient>
+            </defs>
+            <rect x="0" y="0" width="760" height="420" rx="18" fill="url(#gridBg)"/>
+            <g class="grid-lines" aria-hidden="true">
+              <path d="M120 125H280M350 125H490M560 125H665M350 125V280M350 280H155M350 280H540M540 280V355M350 280V355"/>
+            </g>
+            <g class="fault-line" aria-hidden="true"><path d="M120 125H280"/><circle cx="208" cy="125" r="7"/></g>
+            <g class="switch" transform="translate(300 125)"><circle r="25"/><path d="M-10 7L10-7"/><text y="47">S3 OPEN</text></g>
+            <g class="source-node" transform="translate(72 125)"><circle r="42"/><path d="M-16-8L-5 3L3-12L16 8"/><text y="64">GRID · F1</text><text class="node-status" y="82">FAULTED</text></g>
+            <g class="source-node solar" transform="translate(350 58)"><circle r="34"/><path d="M-12 8H12M-8 0H8M-4-8H4"/><text y="53">SOLAR · 35 kW</text></g>
+            <g class="source-node generator" transform="translate(515 125)"><circle r="40"/><text class="symbol" y="8">G</text><text y="62">G1 · 80 kW</text></g>
+            <g class="source-node battery" transform="translate(680 125)"><rect x="-39" y="-27" width="78" height="54" rx="12"/><rect x="39" y="-10" width="7" height="20" rx="2"/><text class="symbol" y="8">55%</text><text y="55">BATTERY</text></g>
+            <g class="load-node" data-node="hospital" transform="translate(122 280)"><rect x="-62" y="-43" width="124" height="86" rx="16"/><path d="M-13 0H13M0-13V13"/><text y="62">HOSPITAL · 45 kW</text></g>
+            <g class="load-node" data-node="shelter" transform="translate(350 355)"><rect x="-62" y="-43" width="124" height="86" rx="16"/><path d="M-18 7L0-8L18 7M-11 3V17H11V3"/><text y="62">SHELTER · 20 kW</text></g>
+            <g class="load-node" data-node="water" transform="translate(540 355)"><rect x="-62" y="-43" width="124" height="86" rx="16"/><path d="M0-17C-13 0-15 8 0 17C15 8 13 0 0-17"/><text y="62">WATER · 25 kW</text></g>
+            <g class="load-node" data-node="homes" transform="translate(650 280)"><rect x="-62" y="-43" width="124" height="86" rx="16"/><path d="M-18 2L0-13L18 2M-12-2V16H12V-2"/><text y="62">HOMES · 30 kW</text></g>
+          </svg>
+          <div class="constraint-callout"><strong>S3 safety interlock</strong><span>Must remain open while feeder F1 is faulted. The domain engine rejects unsafe sequences.</span></div>
+        </section>
+
+        <aside class="panel priorities" aria-labelledby="priorities-title">
+          <div class="panel-heading"><div><span class="eyebrow">Human judgment</span><h2 id="priorities-title">Load priorities</h2></div></div>
+          <p>Operator choices invalidate stale drafts and page-held approvals.</p>
+          <ul class="priority-list">
+            <li><div><span>Hospital</span><small>45 kW · healthcare</small></div><button data-priority="hospital" type="button" aria-pressed="true">Critical</button></li>
+            <li><div><span>Shelter</span><small>20 kW · emergency housing</small></div><button data-priority="shelter" type="button" aria-pressed="true">Critical</button></li>
+            <li><div><span>Water pump</span><small>25 kW · municipal</small></div><button data-priority="water" type="button" aria-pressed="false">Normal</button></li>
+            <li><div><span>Homes</span><small>30 kW · residential</small></div><button data-priority="homes" type="button" aria-pressed="false">Normal</button></li>
+          </ul>
+          <div class="reserve-target"><span>Minimum battery reserve</span><strong>25%</strong></div>
+          <div class="human-demo">
+            <span class="eyebrow">No agent? Run the same engine</span>
+            <button id="plan-a" class="secondary" type="button">Simulate coverage plan</button>
+            <button id="plan-b" class="secondary" type="button">Simulate resilient plan</button>
+            <button id="plan-c" class="secondary" type="button">Simulate critical-services plan</button>
+          </div>
+        </aside>
+
+        <section class="panel candidates-panel" aria-labelledby="candidates-title">
+          <div class="panel-heading"><div><span class="eyebrow">Agent reasoning made visible</span><h2 id="candidates-title">Candidate comparison</h2></div></div>
+          <div id="candidates" class="candidate-grid" aria-live="polite"></div>
+        </section>
+
+        <section class="panel draft-panel" aria-labelledby="draft-title">
+          <div class="panel-heading"><div><span class="eyebrow">Reversible until approval</span><h2 id="draft-title">Switching preview</h2></div></div>
+          <div id="draft"></div>
+          <div class="draft-actions"><button id="prepare-human" type="button" class="secondary">Prepare exact review</button></div>
+        </section>
+
+        <section class="panel approval-panel" aria-labelledby="approval-title">
+          <div class="panel-heading"><div><span class="eyebrow">Human-only boundary</span><h2 id="approval-title">Exact execution review</h2></div><span id="approval-state" class="verdict">not prepared</span></div>
+          <ol id="review-ops" class="review-list"></ol>
+          <div class="approval-warning"><strong>Simulation only</strong><span>The approval secret remains in page state and is never returned to the agent.</span></div>
+          <div class="approval-actions"><button id="authorize" type="button" disabled>Authorize this simulation</button><button id="execute-human" type="button" class="secondary">Execute approved draft once</button></div>
+        </section>
+
+        <section class="panel evidence-panel" aria-labelledby="evidence-title">
+          <div class="panel-heading"><div><span class="eyebrow">Attributable evidence</span><h2 id="evidence-title">Receipt & activity ledger</h2></div></div>
+          <div id="receipt" class="receipt"></div>
+          <ol id="ledger" class="ledger"></ol>
+        </section>
+      </div>
+    </main>
+
+    <footer><span>ISLANDING is a deterministic design prototype. It is not operational utility software.</span><a href="https://github.com/webmaxru/webmcp-grid-resilience">Source</a></footer>
+    <script type="module" src="src/app.mjs"></script>
+  </body>
+</html>
