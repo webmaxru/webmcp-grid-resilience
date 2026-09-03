@@ -17,6 +17,29 @@ A human sets safety priorities; an AI agent explores restoration plans; the page
 - Public YouTube demo: **BLOCKER — add verified public URL, under 3 minutes with audio**
 - Upload captions: use `demo/demo-captions.srt`, generated against the exact final master; do not manually retime it
 
+## YouTube title and description
+
+**Title**
+
+`Islanding: A Storm Took Down the Grid. Can AI Restore It Safely? | WebMCP`
+
+**Description**
+
+```text
+A storm has taken down part of a power grid. Restoring everything quickly is easy; restoring the right loads without energizing a fault or exhausting reserve is the real problem.
+
+In this 2:18 Codex demo, Islanding exposes nine WebMCP tools over a shared grid digital twin. Codex reads the incident, simulates competing switching plans, explains their trade-offs, and then recovers when the operator changes a critical-load priority. The page invalidates stale work and will not execute even a synthetic sequence until the human approves the exact current draft. The result is visible, attributable restoration with the fault still isolated.
+
+This is a deterministic training prototype using synthetic infrastructure data. It does not control a real grid.
+
+Try it: https://webmaxru.github.io/webmcp-grid-resilience/
+Source: https://github.com/webmaxru/webmcp-grid-resilience
+
+Built for the WebMCP Challenge.
+
+#WebMCP #AIAgents #GridResilience #Codex
+```
+
 ## Inspiration
 
 A grid diagram is readable to an operator but dangerously ambiguous to a general browser agent. The same switch icon can hide a fault interlock, transient state, capacity limit, and sequence dependency. Clicking the right-looking SVG control is not the same as understanding whether a plan is safe.
