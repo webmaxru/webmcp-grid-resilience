@@ -75,7 +75,7 @@ The intended gallery order, captions, and alt text are documented in [`submissio
 
 ## Deployment
 
-The project is deployed without a build at [https://webmaxru.github.io/webmcp-grid-resilience/](https://webmaxru.github.io/webmcp-grid-resilience/), with public source at [github.com/webmaxru/webmcp-grid-resilience](https://github.com/webmaxru/webmcp-grid-resilience). The published [2:18 Codex demo](https://youtu.be/SdDKlUeFK2Y) shows the complete WebMCP workflow. The live app must remain free, publicly accessible, and unrestricted through September 21, 2026 at 5:00 pm PT.
+This repository publishes the app directly from its `main` branch through GitHub Pages at [https://webmaxru.github.io/webmcp-grid-resilience/](https://webmaxru.github.io/webmcp-grid-resilience/). The public source is [github.com/webmaxru/webmcp-grid-resilience](https://github.com/webmaxru/webmcp-grid-resilience), and the published [2:18 Codex demo](https://youtu.be/SdDKlUeFK2Y) shows the complete WebMCP workflow. The live app must remain free, publicly accessible, and unrestricted through September 21, 2026 at 5:00 pm PT.
 
 ## Challenge provenance
 
