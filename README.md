@@ -1,4 +1,4 @@
-# Islanding — WebMCP Grid Resilience Lab
+# Islanding — Restore Critical Power Without Energizing the Fault
 
 > This project was created using the [WebMCP Agent Skill from the Web AI Agent Skills collection](https://github.com/webmaxru/web-ai-agent-skills).
 
@@ -67,7 +67,7 @@ src/app.mjs                shared UI and WebMCP wiring
 test/                      deterministic domain and fake-modelContext tests
 demo/                      script, transcript, shot list, evidence checklist
 submission-assets/         tracked Devpost screenshots and accessible social card
-devpost-submission.md      ready-to-paste submission copy
+SUBMISSION.md              ready-to-paste submission copy
 RULES-VALIDATION.md        requirements and readiness evidence
 ```
 

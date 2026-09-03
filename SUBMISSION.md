@@ -1,8 +1,8 @@
-# Devpost submission package
+# Submission information
 
-## Project title
+## Project name
 
-**Islanding — Human-guided grid restoration with WebMCP**
+**Islanding — Restore Critical Power Without Energizing the Fault**
 
 ## Tagline
 

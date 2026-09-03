@@ -2,9 +2,11 @@
 
 > This project was created using the [WebMCP Agent Skill from the Web AI Agent Skills collection](https://github.com/webmaxru/web-ai-agent-skills).
 
+**Project:** Islanding — Restore Critical Power Without Energizing the Fault
+
 These intentionally tracked assets are for the Devpost gallery, repository social preview, and submission write-ups. The PNGs are 1920×1080 frames extracted from the ignored `submission-video/final.mp4`; the video itself remains untracked and must not be moved into this directory.
 
-Published demo: [Islanding — 2:18 Codex/WebMCP walkthrough](https://youtu.be/SdDKlUeFK2Y).
+Published demo: [Islanding — Restore Critical Power Without Energizing the Fault](https://youtu.be/SdDKlUeFK2Y) (2:18 Codex/WebMCP walkthrough).
 
 | Asset | Intended use | Suggested accessible alt text |
 |---|---|---|
