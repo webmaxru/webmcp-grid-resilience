@@ -14,8 +14,8 @@ A human sets safety priorities; an AI agent explores restoration plans; the page
 - Live app: `https://webmaxru.github.io/webmcp-grid-resilience/`
 - Challenge browser: ChatGPT desktop in-app browser, or Google Chrome 149+ with `chrome://flags/#enable-webmcp-testing`
 - Judge access: keep the live app free and unrestricted through September 21, 2026 at 5:00 pm PT
-- Public YouTube demo: **BLOCKER — add verified public URL, under 3 minutes with audio**
-- Upload captions: use `demo/demo-captions.srt`, generated against the exact final master; do not manually retime it
+- Public YouTube demo: https://youtu.be/SdDKlUeFK2Y
+- Caption source: `demo/demo-captions.srt`, generated against the exact final master
 
 ## YouTube title and description
 

@@ -10,7 +10,7 @@ Checked against the official [challenge page](https://webmcp.devpost.com/) and [
 | Multiple submissions must be unique and substantially different | This project is a safety-gated infrastructure digital twin. Unlike the separate microplate app (laboratory spatial allocation) and provenance app (evidence-chain research), its core mechanic is versioned restoration planning plus human authorization of a synthetic switching sequence. It shares no domain model, workflow, or consequence with those projects. | **Distinct** |
 | Working live URL, free and unrestricted through judging | GitHub Pages: `https://webmaxru.github.io/webmcp-grid-resilience/`; anonymous HTTPS request returned HTTP 200 with the expected title on 2026-09-02. Keep it free, public, and unrestricted through September 21, 2026 at 5:00 pm PT. | **Pass; ongoing availability required** |
 | Project description explains WebMCP fit, improved UX, new capability, and implementation | Complete copy in `devpost-submission.md` | **Ready** |
-| Public YouTube demo under 3 minutes with audio and captions | A validated 2:18 narrated final master exists only in ignored `submission-video/`; upload it publicly and attach exact-master `demo/demo-captions.srt` without manual retiming. | **BLOCKER: public upload and URL required** |
+| Public YouTube demo under 3 minutes with audio | Published [2:18 narrated demo](https://youtu.be/SdDKlUeFK2Y); the exact-master caption source remains at `demo/demo-captions.srt`. | **Pass** |
 | Public source repository with complete source | `https://github.com/webmaxru/webmcp-grid-resilience`; GitHub API confirmed `isPrivate: false` on 2026-09-02. | **Pass** |
 | Open-source license visibly present | Root `LICENSE` is MIT and linked in README | **Pass** |
 | Required field: agents/clients tested | Deterministic fake `modelContext`: passed. OpenAI Codex desktop in-app Browser: nine tools discovered from the public deployment and six native calls completed, including simulation, comparison, and visible draft mutation. | **Pass** |
@@ -80,7 +80,7 @@ After publishing the HTTPS GitHub Pages deployment, the in-app Browser discovere
 - [x] Native Codex desktop run captured with Site tools history
 - [x] Public live URL returns HTTP 200 and stays available
 - [x] Repository deliberately changed from private to public
-- [ ] Public YouTube video, under 3:00, with audible narration
+- [x] Public [2:18 YouTube video](https://youtu.be/SdDKlUeFK2Y), under 3:00, with audible narration
 - [ ] Final Devpost form fields and URLs verified
 
-Submission is **not ready** until the two unchecked external items are completed.
+Submission evidence is complete; only entrant-specific Devpost fields and final submission remain.

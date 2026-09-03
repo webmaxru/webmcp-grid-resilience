@@ -1,5 +1,7 @@
 # Islanding — WebMCP Grid Resilience Lab
 
+> This project was created using the [WebMCP Agent Skill from the Web AI Agent Skills collection](https://github.com/webmaxru/web-ai-agent-skills).
+
 Islanding is a deterministic, synthetic microgrid-restoration training simulator. It shows what becomes possible when an AI agent can use semantic website tools instead of guessing at switches in an SVG diagram.
 
 An operator sets safety priorities in the normal UI. A WebMCP-capable agent reads exact topology and transient state, simulates alternatives, compares trade-offs, places a plan in visible preview, detects human changes, and prepares an exact switching sequence. Execution remains blocked until the human authorizes that exact draft using a normal page button. The private page-held grant is consumed once and the app produces an attributable receipt.
@@ -54,8 +56,6 @@ Three prompts and two human clicks, in this order:
 
 Exact prompts and evidence requirements are in [`demo/demo-script.md`](demo/demo-script.md). The implementation rationale is in [`docs/technical-spec.md`](docs/technical-spec.md).
 
-For the public video upload, use the exact-master sidecar captions at `demo/demo-captions.srt`. They are generated against the finished video timing and should not be manually retimed or burned into the product screenshots.
-
 ## Repository map
 
 ```text
@@ -68,14 +68,14 @@ test/                      deterministic domain and fake-modelContext tests
 demo/                      script, transcript, shot list, evidence checklist
 submission-assets/         tracked Devpost screenshots and accessible social card
 devpost-submission.md      ready-to-paste submission copy
-RULES-VALIDATION.md        requirements and honest blockers
+RULES-VALIDATION.md        requirements and readiness evidence
 ```
 
 The intended gallery order, captions, and alt text are documented in [`submission-assets/README.md`](submission-assets/README.md).
 
 ## Deployment
 
-The project is deployed without a build at [https://webmaxru.github.io/webmcp-grid-resilience/](https://webmaxru.github.io/webmcp-grid-resilience/), with public source at [github.com/webmaxru/webmcp-grid-resilience](https://github.com/webmaxru/webmcp-grid-resilience). The live app must remain free, publicly accessible, and unrestricted through September 21, 2026 at 5:00 pm PT.
+The project is deployed without a build at [https://webmaxru.github.io/webmcp-grid-resilience/](https://webmaxru.github.io/webmcp-grid-resilience/), with public source at [github.com/webmaxru/webmcp-grid-resilience](https://github.com/webmaxru/webmcp-grid-resilience). The published [2:18 Codex demo](https://youtu.be/SdDKlUeFK2Y) shows the complete WebMCP workflow. The live app must remain free, publicly accessible, and unrestricted through September 21, 2026 at 5:00 pm PT.
 
 ## Challenge provenance
 

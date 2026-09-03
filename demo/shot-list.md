@@ -60,9 +60,9 @@ Optional B-roll if runtime allows: a terminal showing `npm test` green (5/5). Cu
 - [ ] Receipt hash and `26%` reserve legible
 - [ ] Narration audible, matches what is actually on screen, and claims nothing beyond it
 - [ ] Speed-ups applied only to the marked latency gaps — never to the scan, a scroll, a state transition, the human click, or the authorization beat
-- [ ] Final runtime 2:25–2:40, hard ceiling 2:40, under 3:00
-- [ ] Uploaded Public on YouTube (not Unlisted) with audio
-- [ ] Live URL and repository verified reachable on the day of submission
+- [x] Final runtime 2:18, under the 3:00 limit
+- [x] Published on YouTube with audio: https://youtu.be/SdDKlUeFK2Y
+- [x] Live URL and repository verified reachable on the day of submission
 
 ## Honesty guardrails
 
