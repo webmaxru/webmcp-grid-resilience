@@ -8,6 +8,54 @@ const versionSchema = {
   }
 };
 
+function validateValue(value, schema, path) {
+  if (schema.type === "string" && typeof value !== "string") return `${path} must be a string.`;
+  if (schema.type === "integer" && !Number.isInteger(value)) return `${path} must be an integer.`;
+  if (schema.type === "boolean" && typeof value !== "boolean") return `${path} must be a boolean.`;
+  if (schema.type === "array" && !Array.isArray(value)) return `${path} must be an array.`;
+  if (schema.enum && !schema.enum.includes(value)) return `${path} must be one of: ${schema.enum.join(", ")}.`;
+  if (typeof value === "string") {
+    if (schema.minLength !== undefined && value.length < schema.minLength) return `${path} must contain at least ${schema.minLength} characters.`;
+    if (schema.maxLength !== undefined && value.length > schema.maxLength) return `${path} must contain at most ${schema.maxLength} characters.`;
+    if (schema.pattern && !new RegExp(schema.pattern).test(value)) return `${path} has an invalid format.`;
+  }
+  if (typeof value === "number" && schema.minimum !== undefined && value < schema.minimum) {
+    return `${path} must be at least ${schema.minimum}.`;
+  }
+  if (Array.isArray(value)) {
+    if (schema.minItems !== undefined && value.length < schema.minItems) return `${path} must contain at least ${schema.minItems} items.`;
+    if (schema.maxItems !== undefined && value.length > schema.maxItems) return `${path} must contain at most ${schema.maxItems} items.`;
+    if (schema.uniqueItems && new Set(value.map((item) => JSON.stringify(item))).size !== value.length) {
+      return `${path} must not contain duplicate items.`;
+    }
+    if (schema.items) {
+      for (let index = 0; index < value.length; index += 1) {
+        const error = validateValue(value[index], schema.items, `${path}[${index}]`);
+        if (error) return error;
+      }
+    }
+  }
+  return null;
+}
+
+function validateInput(input, schema) {
+  if (!input || typeof input !== "object" || Array.isArray(input)) return "Input must be an object.";
+  const properties = schema.properties || {};
+  for (const required of schema.required || []) {
+    if (!Object.hasOwn(input, required)) return `${required} is required.`;
+  }
+  if (schema.additionalProperties === false) {
+    const unexpected = Object.keys(input).find((key) => !Object.hasOwn(properties, key));
+    if (unexpected) return `${unexpected} is not an accepted property.`;
+  }
+  for (const [key, value] of Object.entries(input)) {
+    if (!Object.hasOwn(properties, key)) continue;
+    const error = validateValue(value, properties[key], key);
+    if (error) return error;
+  }
+  return null;
+}
+
 export function createGridToolDefinitions(simulator, onUiChange = () => {}) {
   const run = (method) => async (input = {}, options = {}) => {
     options.signal?.throwIfAborted?.();
@@ -17,13 +65,13 @@ export function createGridToolDefinitions(simulator, onUiChange = () => {}) {
     return result;
   };
 
-  return [
+  const tools = [
     {
       name: "get_incident_state",
       title: "Read incident state",
       description: "Read the seeded outage, human-set load priorities, generation, battery reserve target, phase, and current state version before planning.",
       inputSchema: { type: "object", properties: {}, additionalProperties: false },
-      annotations: { readOnlyHint: true },
+      annotations: { readOnlyHint: false },
       execute: run(() => simulator.getIncidentState("agent"))
     },
     {
@@ -38,7 +86,7 @@ export function createGridToolDefinitions(simulator, onUiChange = () => {}) {
         required: ["detailLevel"],
         additionalProperties: false
       },
-      annotations: { readOnlyHint: true },
+      annotations: { readOnlyHint: false },
       execute: run((input) => simulator.getTopology(input, "agent"))
     },
     {
@@ -65,7 +113,7 @@ export function createGridToolDefinitions(simulator, onUiChange = () => {}) {
         required: ["objectives", "operations", "expectedStateVersion"],
         additionalProperties: false
       },
-      annotations: { readOnlyHint: true },
+      annotations: { readOnlyHint: false },
       execute: run((input) => simulator.simulateRestorationPlan(input, "agent"))
     },
     {
@@ -80,7 +128,7 @@ export function createGridToolDefinitions(simulator, onUiChange = () => {}) {
         required: ["candidateIds"],
         additionalProperties: false
       },
-      annotations: { readOnlyHint: true },
+      annotations: { readOnlyHint: false },
       execute: run((input) => simulator.comparePlans(input, "agent"))
     },
     {
@@ -112,7 +160,7 @@ export function createGridToolDefinitions(simulator, onUiChange = () => {}) {
         required: ["draftId", "expectedStateVersion"],
         additionalProperties: false
       },
-      annotations: { readOnlyHint: true },
+      annotations: { readOnlyHint: false },
       execute: run((input) => simulator.validateDraftPlan(input, "agent"))
     },
     {
@@ -157,28 +205,53 @@ export function createGridToolDefinitions(simulator, onUiChange = () => {}) {
         required: ["receiptId"],
         additionalProperties: false
       },
-      annotations: { readOnlyHint: true },
+      annotations: { readOnlyHint: false },
       execute: run((input) => simulator.getExecutionReceipt(input, "agent"))
     }
   ];
+
+  return tools.map((tool) => {
+    const execute = tool.execute;
+    return {
+      ...tool,
+      async execute(input = {}, options = {}) {
+        options.signal?.throwIfAborted?.();
+        const validationError = validateInput(input, tool.inputSchema);
+        if (validationError) {
+          return {
+            ok: false,
+            data: null,
+            stateVersion: simulator.getState().stateVersion,
+            uiChanged: false,
+            validNextActions: [],
+            error: { code: "invalid_input", message: `Invalid tool input: ${validationError}` }
+          };
+        }
+        return execute(input, options);
+      }
+    };
+  });
 }
 
 export async function registerWebMcpTools(tools, modelContext) {
   if (!modelContext) throw new Error("WebMCP is unavailable in this browser context.");
   const controller = new AbortController();
   const registeredNames = [];
+  const errors = [];
 
   for (const tool of tools) {
     try {
       await modelContext.registerTool(tool, { signal: controller.signal });
       registeredNames.push(tool.name);
     } catch (error) {
+      errors.push({ name: tool.name, message: error instanceof Error ? error.message : String(error) });
       console.error(`Failed to register WebMCP tool "${tool.name}":`, error);
     }
   }
 
   return {
     registeredNames,
+    errors,
     dispose() {
       for (const name of [...registeredNames].reverse()) {
         try {

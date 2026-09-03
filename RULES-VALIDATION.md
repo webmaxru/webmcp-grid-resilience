@@ -8,14 +8,14 @@ Checked against the official [challenge page](https://webmcp.devpost.com/) and [
 |---|---|---|
 | Unique project that uses WebMCP | Nine imperative page-hosted tools; top-level registration in `src/app.mjs`; schemas and lifecycle in `src/webmcp.mjs` | **Implemented** |
 | Multiple submissions must be unique and substantially different | This project is a safety-gated infrastructure digital twin. Unlike the separate microplate app (laboratory spatial allocation) and provenance app (evidence-chain research), its core mechanic is versioned restoration planning plus human authorization of a synthetic switching sequence. It shares no domain model, workflow, or consequence with those projects. | **Distinct** |
-| Working live URL, accessible through judging | GitHub Pages: `https://webmaxru.github.io/webmcp-grid-resilience/`; anonymous HTTPS request returned HTTP 200 with the expected title on 2026-09-02. | **Pass** |
+| Working live URL, free and unrestricted through judging | GitHub Pages: `https://webmaxru.github.io/webmcp-grid-resilience/`; anonymous HTTPS request returned HTTP 200 with the expected title on 2026-09-02. Keep it free, public, and unrestricted through September 21, 2026 at 5:00 pm PT. | **Pass; ongoing availability required** |
 | Project description explains WebMCP fit, improved UX, new capability, and implementation | Complete copy in `devpost-submission.md` | **Ready** |
-| Public YouTube demo under 3 minutes with audio | Script, timed transcript, and shot list exist in `demo/`. | **BLOCKER: recording, audio, upload, and public URL required** |
+| Public YouTube demo under 3 minutes with audio and captions | A validated 2:18 narrated final master exists only in ignored `submission-video/`; upload it publicly and attach exact-master `demo/demo-captions.srt` without manual retiming. | **BLOCKER: public upload and URL required** |
 | Public source repository with complete source | `https://github.com/webmaxru/webmcp-grid-resilience`; GitHub API confirmed `isPrivate: false` on 2026-09-02. | **Pass** |
 | Open-source license visibly present | Root `LICENSE` is MIT and linked in README | **Pass** |
 | Required field: agents/clients tested | Deterministic fake `modelContext`: passed. OpenAI Codex desktop in-app Browser: nine tools discovered from the public deployment and six native calls completed, including simulation, comparison, and visible draft mutation. | **Pass** |
 | Required field: AI tools used | OpenAI Codex and installed `webmcp` implementation skill are disclosed in submission copy | **Ready** |
-| Source and app remain accessible through judging | Public repository and HTTPS GitHub Pages deployment are active; keep both available through judging | **Pass; ongoing availability required** |
+| Source and app remain accessible through judging | Public repository and HTTPS GitHub Pages deployment are active; keep the live app free and unrestricted through September 21, 2026 at 5:00 pm PT | **Pass; ongoing availability required** |
 
 Repository visibility and Pages deployment were changed only after the owner explicitly requested both actions.
 

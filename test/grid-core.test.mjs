@@ -81,6 +81,12 @@ test("fails closed on unsafe switching, bad order, and stale state", () => {
   const badOrder = simulate(simulator, ["START_G1", "OPEN_S3", "CLOSE_HOSPITAL"]);
   assert.equal(badOrder.error.code, "invalid_sequence");
 
+  const loadBeforeGeneration = simulate(simulator, ["OPEN_S3", "CLOSE_HOSPITAL", "START_G1"]);
+  assert.equal(loadBeforeGeneration.error.code, "invalid_sequence");
+
+  const duplicateOperation = simulate(simulator, ["OPEN_S3", "START_G1", "CLOSE_HOSPITAL", "CLOSE_HOSPITAL"]);
+  assert.equal(duplicateOperation.error.code, "invalid_sequence");
+
   simulator.setPriority("water", "critical");
   const stale = simulator.simulateRestorationPlan({ objectives: [], operations: PLAN_LIBRARY.critical, expectedStateVersion: 1 });
   assert.equal(stale.error.code, "stale_state");

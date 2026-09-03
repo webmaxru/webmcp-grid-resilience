@@ -114,8 +114,10 @@ const modelContext = document.modelContext || navigator.modelContext;
 if (modelContext) {
   try {
     const registration = await registerWebMcpTools(tools, modelContext);
-    $("#tool-status").dataset.status = "ready";
-    $("#tool-status").innerHTML = `<span class="status-dot"></span><strong>${registration.registeredNames.length} WebMCP tools ready</strong>`;
+    $("#tool-status").dataset.status = registration.errors.length ? "error" : "ready";
+    $("#tool-status").innerHTML = registration.errors.length
+      ? `<span class="status-dot"></span><strong>${registration.registeredNames.length}/9 WebMCP tools ready</strong><span>${registration.errors.length} registration error${registration.errors.length === 1 ? "" : "s"}</span>`
+      : `<span class="status-dot"></span><strong>${registration.registeredNames.length} WebMCP tools ready</strong>`;
     window.addEventListener("pagehide", () => registration.dispose(), { once: true });
   } catch (error) {
     $("#tool-status").dataset.status = "error";

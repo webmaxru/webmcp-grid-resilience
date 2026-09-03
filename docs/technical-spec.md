@@ -43,8 +43,10 @@ Known errors are `stale_state`, `invalid_sequence`, `fault_energization`, `reser
 - `src/app.mjs` routes human UI through that same engine and renders after every mutation.
 - `src/webmcp.mjs` wraps the engine in nine typed imperative tools.
 - Registration occurs from the top-level page with `document.modelContext` and the older `navigator.modelContext` fallback.
-- `registerTool` is awaited and receives a registration-lifecycle signal.
+- `registerTool` is awaited inside `try`/`catch` and receives a registration-lifecycle signal.
 - Each callback accepts its independent execution signal and checks cancellation before and after work.
+- Schema constraints are enforced again at runtime, including required fields, types, enums, uniqueness, and rejection of additional properties.
+- Calls that complete a domain operation record visible activity; malformed or rejected inputs fail before ledger mutation. Successful reads are still observable and simulations create candidates, so no tool declares `readOnlyHint`.
 - Tool results are returned only after synchronous UI rendering.
 - The no-WebMCP path stays fully usable for judges and accessibility review.
 

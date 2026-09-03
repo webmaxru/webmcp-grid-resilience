@@ -152,8 +152,15 @@ export function createGridSimulator({ now = () => Date.now(), randomId } = {}) {
       addLedger("simulate_restoration_plan", actor, "Rejected stale simulation");
       return versionError;
     }
+    const validObjectives = ["restore_critical_loads", "maximize_reserve", "maximize_total_load", "minimize_operations"];
+    if (!Array.isArray(objectives) || objectives.some((objective) => !validObjectives.includes(objective))) {
+      return envelope({ ok: false, error: { code: "invalid_objectives", message: "Use only the documented planning objectives." } });
+    }
     if (!Array.isArray(operations) || operations.length < 1 || operations.some((operation) => !OPERATION_IDS.includes(operation))) {
       return envelope({ ok: false, error: { code: "invalid_sequence", message: "Use a non-empty sequence of documented operation IDs." } });
+    }
+    if (new Set(operations).size !== operations.length) {
+      return envelope({ ok: false, error: { code: "invalid_sequence", message: "Each switching operation may appear at most once." } });
     }
     if (operations.includes("CLOSE_S3")) {
       addLedger("simulate_restoration_plan", actor, "Rejected unsafe S3 close");
@@ -163,7 +170,9 @@ export function createGridSimulator({ now = () => Date.now(), randomId } = {}) {
         validNextActions: ["get_topology", "simulate_restoration_plan"]
       });
     }
-    if (operations[0] !== "OPEN_S3" || !operations.includes("START_G1")) {
+    const generatorStart = operations.indexOf("START_G1");
+    const firstLoadClose = operations.findIndex((operation) => operation.startsWith("CLOSE_") && operation !== "CLOSE_S3");
+    if (operations[0] !== "OPEN_S3" || generatorStart !== 1 || (firstLoadClose !== -1 && generatorStart > firstLoadClose)) {
       return envelope({ ok: false, error: { code: "invalid_sequence", message: "The sequence must isolate S3 first and start G1 before restoring loads." } });
     }
     const metrics = metricsFor(operations);

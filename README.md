@@ -22,7 +22,7 @@ A browser agent cannot safely infer feeder identity, interlocks, reserve constra
 | `execute_approved_simulation` | Consume page-held approval and execute once |
 | `get_execution_receipt` | Read attributable outcome evidence |
 
-The integration uses `const modelContext = document.modelContext || navigator.modelContext`, awaits every `registerTool`, passes an `AbortController` signal for registration lifecycle, accepts per-call execution signals, uses JSON schemas and read-only annotations, and validates domain rules in code.
+The integration uses `const modelContext = document.modelContext || navigator.modelContext`, awaits every `registerTool` inside `try`/`catch`, passes an `AbortController` signal for registration lifecycle, accepts per-call execution signals, validates JSON-schema constraints again at runtime, and returns only after the shared UI state is current. Calls that complete a domain operation record visible activity, while malformed or rejected inputs fail before ledger mutation; because successful reads are still observable and simulations create candidates, none is advertised as read-only.
 
 ## Run locally
 
@@ -32,7 +32,7 @@ Requirements: Node.js 20 or newer.
 npm start
 ```
 
-Open [http://localhost:4173](http://localhost:4173). The complete human workflow works in any modern browser. Native WebMCP discovery requires the supported Codex desktop/browser preview and site tools enabled.
+Open [http://localhost:4173](http://localhost:4173). The complete human workflow works in any modern browser. For challenge testing, native WebMCP requires the ChatGPT desktop in-app browser or Google Chrome 149 or later with `chrome://flags/#enable-webmcp-testing` enabled. The public app is HTTPS and loopback localhost is treated as trustworthy; WebMCP is not available in workers or headless execution.
 
 Run the deterministic suite:
 
@@ -44,14 +44,17 @@ No package installation, API key, account, backend, build step, or network data 
 
 ## Golden demo
 
-1. Ask the agent to restore hospital and shelter, isolate the fault, keep 25% reserve, compare two plans, and preview the best without execution.
-2. In the page, change **Water pump** from Normal to Critical.
-3. Ask the agent to revalidate. Its old version fails stale; it re-reads and prepares a revised critical-services plan.
-4. Ask it to prepare execution. An attempted execute remains blocked with `approval_required`.
-5. Press **Authorize this simulation** in the page, then ask the agent to execute once and retrieve the receipt.
-6. Retry with the same idempotency key: the original receipt returns and no operation repeats.
+Three prompts and two human clicks, in this order:
+
+1. Ask the agent to restore the critical loads without energizing the fault, hold 25% reserve, compare a maximum-coverage option against a safer one, preview the better plan, prepare the exact sequence, and then attempt execution. The coverage plan is blocked at 18% reserve, the resilient plan previews at 27%, and the execution attempt returns `approval_required`.
+2. In the page, change **Water pump** from Normal to Critical. The state version advances, the draft goes stale, and any approval is revoked.
+3. Ask the agent to revalidate and re-plan. It receives `stale_state`, re-reads your priority, and prepares a critical-services plan at 26% reserve.
+4. Press **Authorize this simulation** in the page. The grant is page-held, bound to the exact draft hash, and valid for 60 seconds.
+5. Ask the agent to execute once, retry the same idempotency key, and read the receipt: three loads restored, S3 still open, one receipt (`R-104`), no second execution.
 
 Exact prompts and evidence requirements are in [`demo/demo-script.md`](demo/demo-script.md). The implementation rationale is in [`docs/technical-spec.md`](docs/technical-spec.md).
+
+For the public video upload, use the exact-master sidecar captions at `demo/demo-captions.srt`. They are generated against the finished video timing and should not be manually retimed or burned into the product screenshots.
 
 ## Repository map
 
@@ -63,13 +66,20 @@ src/webmcp.mjs             nine tool schemas and lifecycle registration
 src/app.mjs                shared UI and WebMCP wiring
 test/                      deterministic domain and fake-modelContext tests
 demo/                      script, transcript, shot list, evidence checklist
+submission-assets/         tracked Devpost screenshots and accessible social card
 devpost-submission.md      ready-to-paste submission copy
 RULES-VALIDATION.md        requirements and honest blockers
 ```
 
+The intended gallery order, captions, and alt text are documented in [`submission-assets/README.md`](submission-assets/README.md).
+
 ## Deployment
 
-The project is deployed without a build at [https://webmaxru.github.io/webmcp-grid-resilience/](https://webmaxru.github.io/webmcp-grid-resilience/). Keep it accessible for the full judging period.
+The project is deployed without a build at [https://webmaxru.github.io/webmcp-grid-resilience/](https://webmaxru.github.io/webmcp-grid-resilience/), with public source at [github.com/webmaxru/webmcp-grid-resilience](https://github.com/webmaxru/webmcp-grid-resilience). The live app must remain free, publicly accessible, and unrestricted through September 21, 2026 at 5:00 pm PT.
+
+## Challenge provenance
+
+Repository history starts with the initial app build on September 2, 2026. This is a new challenge project, not a WebMCP layer added to a pre-existing application. It remains substantially distinct from PlateWeave: this repository models safety-gated infrastructure restoration, versioned switching plans, and one-time execution receipts rather than laboratory spatial allocation and CSV export.
 
 ## License and security
 

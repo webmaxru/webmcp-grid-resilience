@@ -1,0 +1,209 @@
+1
+00:00:00,050 --> 00:00:03,704
+A storm takes out a feeder, and a
+neighborhood goes dark.
+
+2
+00:00:03,704 --> 00:00:05,776
+Here's the whole board before anyone
+
+3
+00:00:05,776 --> 00:00:10,455
+touches it — a hospital burning through
+its backup, a shelter filling with people,
+
+4
+00:00:10,455 --> 00:00:13,530
+and a water pump that dies the moment the
+battery does.
+
+5
+00:00:13,530 --> 00:00:15,642
+The operator has minutes to choose a
+
+6
+00:00:15,642 --> 00:00:19,583
+switching sequence — and the wrong switch
+energizes a live fault.
+
+7
+00:00:19,583 --> 00:00:23,692
+Ask a chatbot, and you get confident prose
+about a grid it has never seen.
+
+8
+00:00:23,692 --> 00:00:25,637
+Point a screen-clicking agent at this
+
+9
+00:00:25,637 --> 00:00:28,796
+diagram, and it's guessing which circle
+isolates the fault.
+
+10
+00:00:28,796 --> 00:00:30,845
+So this page stops being a picture.
+
+11
+00:00:30,845 --> 00:00:33,583
+It publishes its own domain as nine WebMCP
+
+12
+00:00:33,583 --> 00:00:37,338
+tools, running on the same engine as the
+human controls.
+
+13
+00:00:37,338 --> 00:00:38,461
+One request.
+
+14
+00:00:38,461 --> 00:00:43,294
+Restore the critical loads, keep the fault
+isolated, hold twenty-five percent battery
+
+15
+00:00:43,294 --> 00:00:46,968
+reserve, and show me what happens if it
+tries to execute without me.
+
+16
+00:00:46,968 --> 00:00:50,833
+It reads the incident and the interlocks
+by name, not by pixel.
+
+17
+00:00:50,833 --> 00:00:53,727
+Then it puts the tempting plan next to the
+safe one.
+
+18
+00:00:53,727 --> 00:00:56,200
+The bigger plan restores more kilowatts —
+
+19
+00:00:56,200 --> 00:01:00,509
+and the page blocks it, because reserve
+collapses to eighteen percent.
+
+20
+00:01:00,509 --> 00:01:02,072
+That's not the model's opinion.
+
+21
+00:01:02,072 --> 00:01:03,634
+Those are the page's rules.
+
+22
+00:01:03,634 --> 00:01:09,155
+The safer plan lands in preview: amber,
+reversible, nothing actually switched.
+
+23
+00:01:09,155 --> 00:01:12,708
+Then it attempts execution, and the page
+stops it cold.
+
+24
+00:01:12,708 --> 00:01:16,204
+Here's where this becomes collaboration
+instead of automation.
+
+25
+00:01:16,204 --> 00:01:17,639
+I don't rewrite the prompt.
+
+26
+00:01:17,639 --> 00:01:18,854
+I use the website.
+
+27
+00:01:18,854 --> 00:01:20,440
+Water pump: critical.
+
+28
+00:01:20,440 --> 00:01:22,966
+That one click advances the shared state,
+
+29
+00:01:22,966 --> 00:01:25,926
+marks the plan stale, and revokes any
+approval.
+
+30
+00:01:25,926 --> 00:01:30,729
+The agent gets a structured error instead
+of a silent wrong answer, and re-plans
+
+31
+00:01:30,729 --> 00:01:35,532
+around my judgment — all three critical
+services, twenty-six percent reserve.
+
+32
+00:01:35,532 --> 00:01:38,241
+It can stage the exact switching sequence.
+
+33
+00:01:38,241 --> 00:01:39,444
+It can never approve it.
+
+34
+00:01:39,444 --> 00:01:44,473
+Authorization is a button on the page that
+mints a short-lived grant bound to this
+
+35
+00:01:44,473 --> 00:01:48,044
+exact plan, and that secret never touches
+model context.
+
+36
+00:01:48,044 --> 00:01:48,924
+Approved.
+
+37
+00:01:48,924 --> 00:01:50,220
+One execution.
+
+38
+00:01:50,220 --> 00:01:52,584
+Hospital, shelter, and water come up, the
+
+39
+00:01:52,584 --> 00:01:56,976
+fault stays isolated, and the receipt
+records who approved what — down to the
+
+40
+00:01:56,976 --> 00:01:59,745
+plan hash and the state versions on either
+side.
+
+41
+00:01:59,745 --> 00:02:03,588
+Retry with the same key, and it refuses to
+run twice.
+
+42
+00:02:03,588 --> 00:02:06,921
+This is a training simulator, not utility
+software.
+
+43
+00:02:06,921 --> 00:02:08,472
+But the pattern is the point.
+
+44
+00:02:08,472 --> 00:02:11,088
+Agents don't earn trust by clicking more
+carefully.
+
+45
+00:02:11,088 --> 00:02:13,230
+They earn it when the page gives them a
+
+46
+00:02:13,230 --> 00:02:15,787
+language to speak — and keeps the last
+word.

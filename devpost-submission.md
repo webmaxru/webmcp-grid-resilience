@@ -12,7 +12,10 @@ A human sets safety priorities; an AI agent explores restoration plans; the page
 
 - Repository: `https://github.com/webmaxru/webmcp-grid-resilience`
 - Live app: `https://webmaxru.github.io/webmcp-grid-resilience/`
+- Challenge browser: ChatGPT desktop in-app browser, or Google Chrome 149+ with `chrome://flags/#enable-webmcp-testing`
+- Judge access: keep the live app free and unrestricted through September 21, 2026 at 5:00 pm PT
 - Public YouTube demo: **BLOCKER — add verified public URL, under 3 minutes with audio**
+- Upload captions: use `demo/demo-captions.srt`, generated against the exact final master; do not manually retime it
 
 ## Inspiration
 
@@ -40,7 +43,7 @@ The top-level document registers nine imperative tools through `document.modelCo
 - trust boundary: exact preparation, page-held human authorization, idempotent execution;
 - evidence: attributable execution receipt.
 
-Every `registerTool` is awaited, has a JSON Schema and explicit description, and is tied to an `AbortController` lifecycle. Read-only tools are annotated. Each execute callback accepts the browser's independent cancellation signal. Tool inputs never supply safety outcomes; the deterministic page engine derives them. Mutating actions use expected versions and fail closed with corrective structured errors.
+Every `registerTool` is awaited inside `try`/`catch`, has a JSON Schema and explicit description, and is tied to an `AbortController` lifecycle. Inputs are validated again at runtime so malformed, extra, stale, and unsafe requests receive corrective structured errors before mutation. Each execute callback accepts the browser's independent cancellation signal. Calls that complete a domain operation write to the visible activity ledger, and simulations create candidates, so none is incorrectly marked read-only. Tool inputs never supply safety outcomes; the deterministic page engine derives them.
 
 Most importantly, the tools update the same visible UI a human uses. WebMCP does not create a hidden agent-only workflow.
 

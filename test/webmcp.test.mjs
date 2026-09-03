@@ -29,12 +29,14 @@ test("registers the nine imperative WebMCP tools with schemas, annotations, and 
   assert.equal(definitions.length, 9);
   assert.equal(modelContext.tools.size, 9);
   assert.deepEqual(registration.registeredNames, definitions.map((tool) => tool.name));
+  assert.deepEqual(registration.errors, []);
   for (const tool of definitions) {
     assert.match(tool.name, /^[A-Za-z0-9_.-]{1,128}$/);
     assert.ok(tool.description.length > 20);
     assert.equal(tool.inputSchema.type, "object");
     assert.equal(typeof tool.execute, "function");
     assert.equal(typeof tool.annotations.readOnlyHint, "boolean");
+    assert.equal(tool.annotations.readOnlyHint, false);
   }
 
   const controller = new AbortController();
@@ -54,4 +56,42 @@ test("execution callbacks honor their independent cancellation signal", async ()
   const controller = new AbortController();
   controller.abort(new Error("cancelled by caller"));
   await assert.rejects(() => read.execute({}, { signal: controller.signal }), /cancelled by caller/);
+});
+
+test("tool runtime validation rejects malformed and extra input without changing state", async () => {
+  const simulator = createGridSimulator();
+  const definitions = createGridToolDefinitions(simulator);
+  const simulate = definitions.find((tool) => tool.name === "simulate_restoration_plan");
+  const before = simulator.getState();
+
+  const wrongVersionType = await simulate.execute({
+    objectives: ["restore_critical_loads"],
+    operations: ["OPEN_S3", "START_G1", "CLOSE_HOSPITAL"],
+    expectedStateVersion: "1"
+  });
+  assert.equal(wrongVersionType.error.code, "invalid_input");
+  assert.match(wrongVersionType.error.message, /expectedStateVersion must be an integer/);
+
+  const extraProperty = await definitions.find((tool) => tool.name === "get_incident_state").execute({ secret: true });
+  assert.equal(extraProperty.error.code, "invalid_input");
+  assert.match(extraProperty.error.message, /secret is not an accepted property/);
+  assert.deepEqual(simulator.getState(), before);
+});
+
+test("registration reports a partial failure and keeps successful tools disposable", async () => {
+  const definitions = createGridToolDefinitions(createGridSimulator());
+  const signals = [];
+  const modelContext = {
+    async registerTool(tool, options) {
+      if (tool.name === "get_topology") throw new DOMException("Denied for test", "NotAllowedError");
+      signals.push(options.signal);
+    },
+    unregisterTool() {}
+  };
+
+  const registration = await registerWebMcpTools(definitions, modelContext);
+  assert.equal(registration.registeredNames.length, 8);
+  assert.deepEqual(registration.errors, [{ name: "get_topology", message: "Denied for test" }]);
+  registration.dispose();
+  assert.ok(signals.every((signal) => signal.aborted));
 });

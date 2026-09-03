@@ -1,6 +1,6 @@
 import { createServer } from "node:http";
 import { readFile, stat } from "node:fs/promises";
-import { extname, join, normalize } from "node:path";
+import { extname, isAbsolute, join, normalize, relative } from "node:path";
 
 const port = Number(process.env.PORT || 4173);
 const root = process.cwd();
@@ -17,15 +17,18 @@ const types = {
 createServer(async (request, response) => {
   try {
     const requestPath = decodeURIComponent(new URL(request.url, `http://${request.headers.host}`).pathname);
-    const relative = requestPath === "/" ? "index.html" : requestPath.replace(/^\/+/, "");
-    const filePath = normalize(join(root, relative));
-    if (!filePath.startsWith(root)) throw new Error("Path outside project root");
+    const requestRelative = requestPath === "/" ? "index.html" : requestPath.replace(/^\/+/, "");
+    const filePath = normalize(join(root, requestRelative));
+    const rootRelative = relative(root, filePath);
+    if (rootRelative.startsWith("..") || isAbsolute(rootRelative)) throw new Error("Path outside project root");
     const info = await stat(filePath);
     if (!info.isFile()) throw new Error("Not a file");
     const body = await readFile(filePath);
     response.writeHead(200, {
       "Content-Type": types[extname(filePath)] || "application/octet-stream",
-      "Cache-Control": "no-store"
+      "Cache-Control": "no-store",
+      "Permissions-Policy": "tools=(self)",
+      "X-Content-Type-Options": "nosniff"
     });
     response.end(body);
   } catch {
