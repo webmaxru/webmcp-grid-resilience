@@ -23,7 +23,8 @@
     "start-hackathon",
     "review",
     "resources",
-    "prepare-submission"
+    "prepare-submission",
+    "submit-project"
   ],
   "rules_acknowledged": true,
   "learning": {
@@ -35,7 +36,10 @@
   },
   "submission": {
     "draft_file": "devpost-submission.md",
-    "status": "ready"
+    "status": "submitted",
+    "project_id": 1416595,
+    "submission_id": 1170330,
+    "url": "https://devpost.com/software/islanding-restore-critical-power-w-o-energizing-the-fault"
   },
-  "next_command": "submit-project"
+  "next_command": "hackathon-map"
 }
